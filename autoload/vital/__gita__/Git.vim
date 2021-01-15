@@ -156,7 +156,7 @@ function! s:_find_worktree(dirpath) abort
   let dgit = s:_fnamemodify(finddir('.git',  fnameescape(a:dirpath) . ';'), ':p:h')
   let fgit = s:_fnamemodify(findfile('.git', fnameescape(a:dirpath) . ';'), ':p')
   " inside '.git' directory is not a working directory
-  let dgit = a:dirpath =~# '^' . s:String.escape_pattern(dgit) ? '' : dgit
+  let dgit = a:dirpath =~# '^' . s:String.escape_pattern(dgit) . '\($\|/\|\\\)' ? '' : dgit
   " use deepest dotgit found
   let dotgit = strlen(dgit) >= strlen(fgit) ? dgit : fgit
   return strlen(dotgit) ? s:_fnamemodify(dotgit, ':h') : ''
